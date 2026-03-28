@@ -15,7 +15,7 @@ export function LicenseFooter({ onViewLicense }: LicenseFooterProps) {
       transition={{ delay: 0.8, duration: 0.5 }}
       className="mt-12 relative z-10"
     >
-      <Card className="p-6 bg-card/80 backdrop-blur-sm border-2">
+      <Card className="p-5 bg-white/50 backdrop-blur-sm border border-border/40">
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex flex-col md:flex-row items-center gap-3 text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
@@ -56,7 +56,7 @@ export function LicenseFooter({ onViewLicense }: LicenseFooterProps) {
             </Button>
           </div>
         </div>
-        <div className="mt-4 text-center text-sm text-muted-foreground border-t pt-4">
+        <div className="mt-3 text-center text-xs text-muted-foreground/80 border-t border-border/40 pt-3">
           <p>Empowering families through better communication</p>
         </div>
       </Card>

@@ -17,7 +17,7 @@ import { LicenseFooter } from '@/components/LicenseFooter'
 import { LicensePage } from '@/components/LicensePage'
 import { PaperPlaneRight, ClockCounterClockwise, Sparkle, Warning } from '@phosphor-icons/react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { toast } from 'sonner'
+import { toast, Toaster } from 'sonner'
 
 interface MessageHistory {
   id: string
@@ -129,31 +129,37 @@ Focus on reducing conflict, using "I" statements, removing absolute language, an
 
   return (
     <div className="min-h-screen relative">
+      <Toaster position="top-center" richColors closeButton />
       <FloatingBackground />
 
-      <div className="container mx-auto px-6 py-8 md:py-12 max-w-5xl relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 py-6 md:py-10 max-w-4xl relative z-10">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-8"
         >
-          <h1 className="text-4xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+          <img
+            src="/logo.png"
+            alt="FamilyBridge logo"
+            className="mx-auto mb-4 w-20 h-20 md:w-24 md:h-24 rounded-2xl shadow-lg shadow-primary/20"
+          />
+          <h1 className="text-3xl md:text-4xl font-bold mb-2 bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
             FamilyBridge
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base text-muted-foreground max-w-xl mx-auto">
             Improve your family communication with AI-powered message refinement
           </p>
         </motion.div>
 
         <Tabs defaultValue="compose" className="space-y-6">
-          <TabsList className="grid w-full max-w-md mx-auto grid-cols-2">
-            <TabsTrigger value="compose" className="gap-2">
-              <PaperPlaneRight size={18} weight="duotone" />
+          <TabsList className="grid w-full max-w-sm mx-auto grid-cols-2 h-11">
+            <TabsTrigger value="compose" className="gap-2 text-sm font-semibold">
+              <PaperPlaneRight size={16} weight="duotone" />
               Compose
             </TabsTrigger>
-            <TabsTrigger value="history" className="gap-2">
-              <ClockCounterClockwise size={18} weight="duotone" />
+            <TabsTrigger value="history" className="gap-2 text-sm font-semibold">
+              <ClockCounterClockwise size={16} weight="duotone" />
               History
             </TabsTrigger>
           </TabsList>
@@ -164,7 +170,7 @@ Focus on reducing conflict, using "I" statements, removing absolute language, an
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
             >
-              <Card className="p-6 md:p-8 space-y-6 bg-card/80 backdrop-blur-sm border-2">
+              <Card className="p-5 md:p-7 space-y-5 bg-white/70 backdrop-blur-md border border-border/60 shadow-sm">
                 <RoleSelector value={role} onChange={setRole} />
 
                 <Separator />
@@ -227,11 +233,11 @@ Focus on reducing conflict, using "I" statements, removing absolute language, an
             </motion.div>
 
             {isLoading && (
-              <Card className="p-6 space-y-4 bg-card/80 backdrop-blur-sm">
-                <Skeleton className="h-6 w-48" />
-                <Skeleton className="h-32 w-full" />
-                <Skeleton className="h-6 w-48" />
-                <Skeleton className="h-32 w-full" />
+              <Card className="p-6 space-y-4 bg-white/60 backdrop-blur-md border border-border/60">
+                <Skeleton className="h-5 w-40" />
+                <Skeleton className="h-28 w-full rounded-lg" />
+                <Skeleton className="h-5 w-40" />
+                <Skeleton className="h-28 w-full rounded-lg" />
               </Card>
             )}
 
@@ -252,9 +258,9 @@ Focus on reducing conflict, using "I" statements, removing absolute language, an
           </TabsContent>
 
           <TabsContent value="history" className="space-y-4">
-            <Card className="p-6 bg-card/80 backdrop-blur-sm border-2">
+            <Card className="p-5 md:p-6 bg-white/70 backdrop-blur-md border border-border/60 shadow-sm">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-bold">Message History</h2>
+                <h2 className="text-lg font-bold">Message History</h2>
                 {history && history.length > 0 && (
                   <Button variant="outline" size="sm" onClick={clearHistory}>
                     Clear History

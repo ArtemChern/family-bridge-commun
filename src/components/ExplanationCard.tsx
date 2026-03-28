@@ -1,6 +1,5 @@
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Lightbulb, ChatCircle, Heart, Robot } from '@phosphor-icons/react'
 import { motion } from 'framer-motion'
 
@@ -38,9 +37,9 @@ export function ExplanationCard({ explanations }: ExplanationCardProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3, duration: 0.5 }}
     >
-      <Card className="p-6 space-y-4 bg-card/80 backdrop-blur-sm border-2">
-        <h3 className="text-xl font-bold flex items-center gap-2">
-          <Lightbulb size={24} weight="duotone" className="text-accent" />
+      <Card className="p-5 space-y-4 bg-white/70 backdrop-blur-md border border-border/60 shadow-sm">
+        <h3 className="text-lg font-bold flex items-center gap-2">
+          <Lightbulb size={22} weight="duotone" className="text-accent" />
           Why This Works Better
         </h3>
         <div className="space-y-3">
@@ -68,12 +67,12 @@ export function ExplanationCard({ explanations }: ExplanationCardProps) {
             )
           })}
         </div>
-        <Alert className="bg-muted/50 border-muted-foreground/20 mt-4">
-          <Robot size={16} weight="duotone" className="text-muted-foreground" />
-          <AlertDescription className="text-xs text-muted-foreground">
-            These explanations are AI-generated suggestions. Consider them thoughtfully in the context of your relationship.
-          </AlertDescription>
-        </Alert>
+        <div className="flex items-start gap-2 pt-3 border-t border-border/40">
+          <Robot size={14} weight="duotone" className="text-muted-foreground mt-0.5 flex-shrink-0" />
+          <p className="text-xs text-muted-foreground leading-relaxed">
+            AI-generated suggestions. Consider them thoughtfully in the context of your relationship.
+          </p>
+        </div>
       </Card>
     </motion.div>
   )
