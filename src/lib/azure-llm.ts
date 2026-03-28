@@ -1,5 +1,5 @@
 /**
- * Call Azure AI Foundry Responses API via nginx reverse proxy.
+ * Call Azure OpenAI Chat Completions API via nginx reverse proxy.
  * The API key is injected server-side by nginx — not exposed to the browser.
  */
 export async function callAzureLLM(prompt: string): Promise<string> {
@@ -9,8 +9,9 @@ export async function callAzureLLM(prompt: string): Promise<string> {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      model: 'gpt-4o-mini',
-      input: prompt,
+      messages: [
+        { role: 'user', content: prompt },
+      ],
     }),
   });
 
@@ -21,11 +22,8 @@ export async function callAzureLLM(prompt: string): Promise<string> {
 
   const data = await response.json();
 
-  // Responses API returns output[].content[].text
-  const outputText = data.output
-    ?.find((item: { type: string }) => item.type === 'message')
-    ?.content?.find((c: { type: string }) => c.type === 'output_text')
-    ?.text;
+  // Chat Completions API returns choices[0].message.content
+  const outputText = data.choices?.[0]?.message?.content;
 
   if (!outputText) {
     throw new Error('No output text in Azure API response');
