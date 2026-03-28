@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useKV } from '@github/spark/hooks'
+import { useLocalStorage } from '@/hooks/use-local-storage'
 import { callAzureLLM, parseLLMJson } from '@/lib/azure-llm'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
@@ -45,7 +45,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
   const [result, setResult] = useState<AIResponse | null>(null)
   const [error, setError] = useState<string | null>(null)
-  const [history, setHistory] = useKV<MessageHistory[]>('message-history', [])
+  const [history, setHistory] = useLocalStorage<MessageHistory[]>('message-history', [])
   const [showLicense, setShowLicense] = useState(false)
 
   const handleImproveMessage = async () => {
