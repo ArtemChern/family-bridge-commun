@@ -101,7 +101,7 @@ export function LicensePage({ onBack }: LicensePageProps) {
             <p>
               For questions or contributions, please visit our{' '}
               <a
-                href="https://github.com/mosaicteams/familybridge"
+                href="https://github.com/ArtemChern/family-bridge-commun"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline hover:text-accent transition-colors font-semibold"
