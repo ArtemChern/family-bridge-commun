@@ -2,74 +2,74 @@
 
 An AI-powered family communication tool that helps parents and children write more effective, empathetic messages by providing real-time refinement suggestions with educational explanations, fostering healthier relationships through better communication habits.
 
-**Experience Qualities**: 
+2. **Supportive** - The in
 1. **Empowering** - Users feel confident in improving their communication skills through clear, actionable feedback
 2. **Supportive** - The interface provides gentle guidance without judgment, creating a safe space for growth
 3. **Simple** - Streamlined interface focused on core functionality without overwhelming options
 
-**Complexity Level**: Light Application (multiple features with basic state)
-  - The app has several interconnected features (message input, AI refinement with model selection, comparison view, explanations) but maintains a focused, single-purpose flow without requiring complex multi-view navigation or heavy data persistence
+- **Progression**: Select role → Type message → View character count → Enabl
 
-## Essential Features
 
-### Message Input & Role Selection
-- **Functionality**: Text area for composing messages with radio buttons to select sender role (Parent/Child)
-- **Purpose**: Captures the user's raw communication attempt and context to tailor AI suggestions appropriately
-- **Trigger**: User lands on the main page
-- **Progression**: Select role → Type message → View character count → Enable improve button when ready
-- **Success criteria**: Input captures multi-line text, role selection is clear, button state reflects readiness
+- **Trigger**: Click 
 
-### AI Message Refinement
-- **Functionality**: Submit button triggers AI analysis that returns improved message version with categorized explanations
-- **Purpose**: Provides concrete examples of better communication patterns while explaining the reasoning
-- **Trigger**: Click "Improve Message" button
-- **Progression**: Click improve → Loading state with skeleton → Results appear with animation → Compare original vs improved
-- **Success criteria**: Response within reasonable time, maintains original intent, feels authentic not robotic
-
-### Side-by-Side Message Comparison
-- **Functionality**: Side-by-side or stacked display (responsive) showing original vs improved message
+### Side-by-Side Message Compariso
 - **Purpose**: Makes differences immediately visible and reinforces learning
-- **Trigger**: Results returned from AI
-- **Progression**: Messages appear with staggered animation → Visual distinction through color/border → User can copy either version
-- **Success criteria**: Clear visual hierarchy, improved message stands out, responsive layout adapts to mobile
+- **Progression**: Messages appear with staggered animation → Visual distinction through color/border → User ca
 
-### Categorized Explanations
-- **Functionality**: Expandable cards showing why changes were made, grouped by category (Tone, Clarity, Emotional Balance)
-- **Purpose**: Educational component - users learn communication principles beyond just this message
+- **Functionality**: Expandable cards showing why changes were made, grouped by category (Tone, Clarity
 - **Trigger**: Automatically displayed below message comparison
-- **Progression**: Cards animate in sequentially → Icons indicate category → Text explains specific improvements → Disclaimer about AI suggestions
-- **Success criteria**: 2-3 focused explanations, clear categories, actionable insights
 
-### Message History with Persistence
-- **Functionality**: Tab showing past message pairs with timestamps and role context, persisted using useKV
+### Message History with 
 - **Purpose**: Allows users to review their communication journey and see improvement over time
-- **Trigger**: Click "History" tab
-- **Progression**: View history → Browse past messages → See original/improved pairs → Optional: clear history
-- **Success criteria**: Chronological order, persistent across sessions, easy to browse, clear action to remove
+- **Progression**: View history → Browse past messages → See original/improved pairs → Optional: clear hi
 
-## Edge Case Handling
 
-- **Empty message submission** - Disable button until text entered, show toast if attempted
 - **API failure** - Display friendly error message with retry option, don't lose user's message
-- **Very long messages** - Show character count with suggested maximum, allow but may truncate display
-- **Offline state** - Show clear indicator that AI features require connection
-- **No history** - Empty state with helpful illustration and prompt to start using the app
 
-## Design Direction
 
-The design should evoke trust, calm, and optimism - like a wise friend who helps you communicate better. It should feel modern and tech-forward (acknowledging the AI) while remaining warm and human-centered. Visual language should emphasize connection and bridges between people.
 
-## Color Selection
 
-The color scheme uses cool blues and purples to evoke trust and calm, with warm accents for moments of insight and success.
 
-- **Primary Color (Deep Ocean Blue `oklch(0.45 0.12 250)`**: Main brand color representing depth, trust, and thoughtfulness - used for primary actions and key UI elements
+
 - **Secondary Colors**: 
-  - Warm Sand `oklch(0.92 0.02 70)` - Soft, neutral backgrounds that don't compete with content
-  - Soft Sky `oklch(0.88 0.04 240)` - Card backgrounds with subtle blue tint
-- **Accent Color (Gentle Violet `oklch(0.65 0.15 290)`**: Attention-grabbing highlight for AI features, insights, and moments of learning
-- **Foreground/Background Pairings**: 
-  - Background (Whisper White `oklch(0.98 0.005 240)`): Dark Navy text `oklch(0.25 0.02 250)` - Ratio 11.2:1 ✓
+
+- **Foreground/Background Pa
+  - Primary (Deep Ocean Blue `oklch(0.45 0.12 250)`): White text `oklch(1 0 0)` - Ratio 8.1:1 ✓
+  - Card (Soft Sky `oklch(0.88 0.04 240)`): Dark Navy text `oklch(0.25 0.02 250)` - Ratio 10.8:1 ✓
+## Font Selection
+Typography should feel modern and approachable while maintaining exceptional readability for potentially emotional content.
+- **Primary Font**: Space Grotesk - A geometric sans-serif with technical precision sof
+
+  - H1 (App Title): Space Grotesk Bo
+  - H3 (Message Labels): Space Grotesk Medium / 18px / 0em / line-height 1.3
+  - Small (Metadata, timestamps): Inter Regular / 14px / 0em / line-height 1.5
+
+
+
+
+  - **Card**: For mes
+
+  - **Badge**: For categorizing explanation types (Tone, Clarity, Emotional Balance) and mo
+  - **Separator**: To divide sections visually without harsh lines
+  - **Skeleton**: Loading state for AI processing, maintaining layout stability
+
+  - Custom floating background using CSS gradients with framer-motion for ambient movement
+
+- **States**:
+
+  - Select: Closed (chevron down), Open (dropdown visible with options), Selected (checkmark visible)
+
+  - Robot - AI/Mod
+
+  - ChatCircle - Tone improvements
+
+
+  - Container padding: p
+  - Section gaps: gap-8 (vertical stacking)
+  - Button padding: px-6 py-3
+
+  - Stack comparison view vertically o
+  - Larger touch targets for model selection dropdown
   - Primary (Deep Ocean Blue `oklch(0.45 0.12 250)`): White text `oklch(1 0 0)` - Ratio 8.1:1 ✓
   - Accent (Gentle Violet `oklch(0.65 0.15 290)`): White text `oklch(1 0 0)` - Ratio 4.6:1 ✓
   - Card (Soft Sky `oklch(0.88 0.04 240)`): Dark Navy text `oklch(0.25 0.02 250)` - Ratio 10.8:1 ✓
@@ -142,6 +142,6 @@ Animations should feel gentle and purposeful - like breathing or flowing water -
   - Larger touch targets for role selection (min 44px)
   - Larger touch targets for model selection dropdown
   - Fixed bottom action button on mobile for easy thumb access
-  - Collapsible explanation sections to reduce scrolling
+
   - Simplified 3D effects on mobile (performance consideration)
-  - Single column layout with clear visual hierarchy
+
