@@ -10,6 +10,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
 import { FloatingBackground } from '@/components/FloatingBackground'
 import { RoleSelector } from '@/components/RoleSelector'
+import { ModelSelector } from '@/components/ModelSelector'
 import { MessageComparison } from '@/components/MessageComparison'
 import { ExplanationCard } from '@/components/ExplanationCard'
 import { LicensePage } from '@/components/LicensePage'
@@ -41,6 +42,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState<'home' | 'license'>('home')
   const [message, setMessage] = useState('')
   const [role, setRole] = useState('parent')
+  const [selectedModel, setSelectedModel] = useKV<string>('selected-model', 'gpt-4o')
   const [isLoading, setIsLoading] = useState(false)
   const [result, setResult] = useState<AIResponse | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -84,7 +86,7 @@ Categories must be exactly one of: "tone", "clarity", or "emotional"
 Make sure the improved message feels natural and authentic, not overly formal.
 Focus on reducing conflict, using "I" statements, removing absolute language, and promoting dialogue.`
 
-      const response = await window.spark.llm(promptText, 'gpt-4o', true)
+      const response = await window.spark.llm(promptText, selectedModel as 'gpt-4o' | 'gpt-4o-mini', true)
       const parsed = JSON.parse(response) as AIResponse
 
       setResult(parsed)
@@ -177,6 +179,12 @@ Focus on reducing conflict, using "I" statements, removing absolute language, an
             >
               <Card className="p-6 md:p-8 space-y-6 bg-card/80 backdrop-blur-sm border-2">
                 <RoleSelector value={role} onChange={setRole} />
+
+                <Separator />
+
+                <ModelSelector value={selectedModel} onChange={setSelectedModel} />
+
+                <Separator />
 
                 <div className="space-y-3">
                   <label htmlFor="message" className="text-base font-semibold">
