@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 
 export function FloatingBackground() {
   return (
-    <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+    <div className="fixed inset-0 -z-50 overflow-hidden pointer-events-none">
       <div className="absolute inset-0 bg-gradient-to-br from-background via-muted to-card" />
       
       <motion.div
