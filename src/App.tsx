@@ -12,6 +12,7 @@ import { FloatingBackground } from '@/components/FloatingBackground'
 import { RoleSelector } from '@/components/RoleSelector'
 import { MessageComparison } from '@/components/MessageComparison'
 import { ExplanationCard } from '@/components/ExplanationCard'
+import { LicensePage } from '@/components/LicensePage'
 import { PaperPlaneRight, ClockCounterClockwise, Sparkle, Warning, Robot } from '@phosphor-icons/react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { toast } from 'sonner'
@@ -37,6 +38,7 @@ interface AIResponse {
 }
 
 function App() {
+  const [currentPage, setCurrentPage] = useState<'home' | 'license'>('home')
   const [message, setMessage] = useState('')
   const [role, setRole] = useState('parent')
   const [isLoading, setIsLoading] = useState(false)
@@ -117,6 +119,10 @@ Focus on reducing conflict, using "I" statements, removing absolute language, an
   const clearHistory = () => {
     setHistory([])
     toast.success('History cleared')
+  }
+
+  if (currentPage === 'license') {
+    return <LicensePage onBack={() => setCurrentPage('home')} />
   }
 
   return (
@@ -313,14 +319,12 @@ Focus on reducing conflict, using "I" statements, removing absolute language, an
           <p>Built by <span className="font-semibold text-foreground">Mosaic Team</span> for AI For Good 2026 South Europe Hackathon</p>
           <p>Empowering families through better communication</p>
           <p className="text-xs">
-            <a 
-              href="https://github.com/mosaicteams/familybridge/blob/main/LICENSE" 
-              target="_blank" 
-              rel="noopener noreferrer"
+            <button
+              onClick={() => setCurrentPage('license')}
               className="underline hover:text-accent transition-colors"
             >
               MIT License
-            </a>
+            </button>
           </p>
         </motion.footer>
       </div>
