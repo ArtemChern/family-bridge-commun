@@ -1,6 +1,7 @@
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Lightbulb, ChatCircle, Heart } from '@phosphor-icons/react'
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import { Lightbulb, ChatCircle, Heart, Robot } from '@phosphor-icons/react'
 import { motion } from 'framer-motion'
 
 interface Explanation {
@@ -67,6 +68,12 @@ export function ExplanationCard({ explanations }: ExplanationCardProps) {
             )
           })}
         </div>
+        <Alert className="bg-muted/50 border-muted-foreground/20 mt-4">
+          <Robot size={16} weight="duotone" className="text-muted-foreground" />
+          <AlertDescription className="text-xs text-muted-foreground">
+            These explanations are AI-generated suggestions. Consider them thoughtfully in the context of your relationship.
+          </AlertDescription>
+        </Alert>
       </Card>
     </motion.div>
   )

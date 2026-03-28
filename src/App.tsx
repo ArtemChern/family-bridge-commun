@@ -12,7 +12,7 @@ import { FloatingBackground } from '@/components/FloatingBackground'
 import { RoleSelector } from '@/components/RoleSelector'
 import { MessageComparison } from '@/components/MessageComparison'
 import { ExplanationCard } from '@/components/ExplanationCard'
-import { PaperPlaneRight, ClockCounterClockwise, Sparkle, Warning } from '@phosphor-icons/react'
+import { PaperPlaneRight, ClockCounterClockwise, Sparkle, Warning, Robot } from '@phosphor-icons/react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { toast } from 'sonner'
 
@@ -156,6 +156,19 @@ Focus on reducing conflict, using "I" statements, removing absolute language, an
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
             >
+              <Alert className="bg-accent/10 border-accent/30">
+                <Robot size={18} weight="duotone" className="text-accent" />
+                <AlertDescription className="text-sm">
+                  This tool uses AI to suggest improved communication. Always review suggestions carefully and use your own judgment. AI is a guide, not a replacement for genuine understanding.
+                </AlertDescription>
+              </Alert>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+            >
               <Card className="p-6 md:p-8 space-y-6 bg-card/80 backdrop-blur-sm border-2">
                 <RoleSelector value={role} onChange={setRole} />
 
@@ -295,10 +308,20 @@ Focus on reducing conflict, using "I" statements, removing absolute language, an
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.5 }}
-          className="mt-12 text-center text-sm text-muted-foreground"
+          className="mt-12 text-center text-sm text-muted-foreground space-y-2"
         >
-          <p>Built for AI For Good 2026 South Europe Hackathon</p>
-          <p className="mt-1">Empowering families through better communication</p>
+          <p>Built by <span className="font-semibold text-foreground">Mosaic Team</span> for AI For Good 2026 South Europe Hackathon</p>
+          <p>Empowering families through better communication</p>
+          <p className="text-xs">
+            <a 
+              href="https://github.com/mosaicteams/familybridge/blob/main/LICENSE" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="underline hover:text-accent transition-colors"
+            >
+              MIT License
+            </a>
+          </p>
         </motion.footer>
       </div>
     </div>
