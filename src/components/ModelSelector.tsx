@@ -1,7 +1,6 @@
 import { Robot, Sparkle } from '@phosphor-icons/react'
-import { Select, SelectContent, SelectItem,
-
-  value: string
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Label } from '@/components/ui/label'
 
 interface ModelSelectorProps {
   value: string
@@ -38,17 +37,18 @@ export function ModelSelector({ value, onChange }: ModelSelectorProps) {
             <SelectItem key={model.id} value={model.id}>
               <div className="flex items-center gap-2">
                 {model.badge}
+                <div className="flex flex-col">
+                  <span className="font-medium">{model.name}</span>
+                  <span className="text-xs text-muted-foreground">{model.description}</span>
+                </div>
+              </div>
+            </SelectItem>
+          ))}
+        </SelectContent>
       </Select>
-        <p className
-        </p>
+      <p className="text-sm text-muted-foreground">
+        Current: {selectedModel.name}
+      </p>
     </div>
+  )
 }
-
-
-
-
-
-
-
-
-
