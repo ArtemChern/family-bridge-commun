@@ -1,16 +1,23 @@
-# FamilyBridge
+# PathSense
 
-AI-powered family communication tool that helps parents and children write more effective, empathetic messages through real-time refinement and gamified learning.
+AI-powered local guide — describe your situation, get smart suggestions with directions.
 
 **Live:** http://48.211.178.1 · **Built by:** Mosaic Team · **Event:** AIForGoodHack South Europe 2026
 
 ## Features
 
-**Compose** — Write a message, select your role (parent/child), and get an AI-improved version with explanations of what changed and why (tone, clarity, emotional balance).
+**Ask** — Describe your location, conditions, and needs. AI returns 3-5 relevant suggestions with names, explanations, addresses, and one-tap Google Maps directions.
 
-**Challenge** — 60-second timed quiz: read a family scenario, pick the best response from 3 AI-generated variants. Score points, build streaks, beat your high score.
+**Challenge** — 60-second situational awareness quiz: read a real-world city scenario, pick the smartest action. Score points, build streaks, beat your high score.
 
-**History** — Browse past messages with original/improved pairs.
+**History** — Browse past searches with expandable suggestion results.
+
+## Examples
+
+- "I'm in central Prague, it's raining, I need a quiet café with Wi-Fi to work"
+- "Looking for a wheelchair-accessible museum near Times Square"
+- "Late night in Berlin, need a safe 24h pharmacy nearby"
+- "Family with small kids near Barcelona beach, need shade and food"
 
 ## Tech Stack
 
@@ -19,6 +26,7 @@ AI-powered family communication tool that helps parents and children write more 
 | Frontend | React 19, Vite, TypeScript |
 | UI | Tailwind CSS v4, Radix UI / shadcn/ui, Framer Motion |
 | AI | Azure OpenAI (gpt-4.1-mini) via Chat Completions API |
+| Maps | Google Maps links for directions and location search |
 | Hosting | AKS (nginx container serving the Vite SPA) |
 | Registry | Azure Container Registry (`familybridgeacr`) |
 | CI/CD | GitHub Actions → ACR build → AKS deploy |
@@ -28,28 +36,28 @@ AI-powered family communication tool that helps parents and children write more 
 ```
 Browser (React SPA)
   ├─ /api/ai → nginx reverse proxy → Azure OpenAI (gpt-4.1-mini)
+  ├─ Google Maps links for directions (external)
   └─ static assets served by nginx
 ```
 
 - API key is injected server-side by nginx — never exposed to the browser
-- Message history stored in browser `localStorage`
+- Search history stored in browser `localStorage`
 - 2 pod replicas behind a LoadBalancer service
 
 ## Project Structure
 
 ```
 src/
-  App.tsx                  # Main app with Compose/Challenge/History tabs
+  App.tsx                  # Main app with Ask/Challenge/History tabs
   components/
-    GameTab.tsx            # Gamification challenge component
-    RoleSelector.tsx       # Parent/child role picker
-    MessageComparison.tsx  # Side-by-side original vs improved
-    ExplanationCard.tsx    # AI explanation badges
+    AskTab.tsx             # Situation input + suggestion results
+    SuggestionCard.tsx     # Individual suggestion with map/directions
+    GameTab.tsx            # Situational awareness quiz
     FloatingBackground.tsx # Animated background
   hooks/
     use-local-storage.ts   # localStorage persistence hook
   lib/
-    azure-llm.ts           # Azure OpenAI client + game question generator
+    azure-llm.ts           # Azure OpenAI client + suggestion/game prompts
 k8s/
   deployment.yaml          # 2 replicas, health probes, resource limits
   service.yaml             # LoadBalancer on port 80
@@ -64,22 +72,13 @@ npm install
 npm run dev
 ```
 
-> Note: The `/api/ai` proxy only works when served through nginx. For local dev, you can temporarily hard-code the Azure OpenAI endpoint in `azure-llm.ts`.
-
 ## Deployment
 
-The app runs on AKS in `familybridge-rg` (eastus2).
-
 ```bash
-# Build and push image
 az acr build --registry familybridgeacr --image familybridge:latest .
-
-# Deploy to AKS
 az aks get-credentials --resource-group familybridge-rg --name familybridge-aks
 kubectl apply -f k8s/
 ```
-
-CI/CD is configured in `.github/workflows/deploy-aks.yml` — push to `main` triggers an automatic build and deploy. Requires an `AZURE_CREDENTIALS` secret in the GitHub repo.
 
 ## License
 

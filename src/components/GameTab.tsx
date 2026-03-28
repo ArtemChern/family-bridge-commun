@@ -161,10 +161,10 @@ export function GameTab() {
           <Card className="p-6 md:p-8 bg-white/70 backdrop-blur-md border border-border/60 shadow-sm text-center space-y-5">
             <div className="space-y-2">
               <Trophy size={48} weight="duotone" className="mx-auto text-yellow-500" />
-              <h2 className="text-xl font-bold">Communication Challenge</h2>
+              <h2 className="text-xl font-bold">Situation Challenge</h2>
               <p className="text-sm text-muted-foreground max-w-md mx-auto">
-                You'll see a family scenario and 3 possible responses. Pick the best one!
-                Score points for correct answers — bonus for streaks. You have <strong>60 seconds</strong>.
+                Real-world city scenarios — pick the smartest action!
+                Score points for good decisions, bonus for streaks. You have <strong>60 seconds</strong>.
               </p>
             </div>
             {highScore > 0 && (

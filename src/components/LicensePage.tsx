@@ -31,7 +31,7 @@ export function LicensePage({ onBack }: LicensePageProps) {
               MIT License
             </h1>
             <p className="text-lg text-muted-foreground">
-              FamilyBridge is open source software
+              PathSense is open source software
             </p>
           </div>
 
@@ -76,15 +76,15 @@ export function LicensePage({ onBack }: LicensePageProps) {
                   <h3 className="font-bold text-base mb-3 font-sans">About FamilyBridge</h3>
                   <div className="space-y-2 text-muted-foreground font-sans text-sm">
                     <p>
-                      FamilyBridge is an AI-powered communication tool designed to help families
-                      communicate more effectively and empathetically.
+                      PathSense is an AI-powered local guide that helps people navigate
+                      real-world situations with smart, context-aware suggestions.
                     </p>
                     <p>
                       Built by the Mosaic Team for the AI For Good 2026 South Europe Hackathon.
                     </p>
                     <p className="pt-2">
-                      This project aims to strengthen family relationships through better
-                      communication practices powered by artificial intelligence.
+                      Describe your situation and needs — get practical suggestions
+                      with directions, maps, and explanations of why each place fits.
                     </p>
                   </div>
                 </div>
