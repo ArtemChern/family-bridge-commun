@@ -12,6 +12,8 @@ import { FloatingBackground } from '@/components/FloatingBackground'
 import { RoleSelector } from '@/components/RoleSelector'
 import { MessageComparison } from '@/components/MessageComparison'
 import { ExplanationCard } from '@/components/ExplanationCard'
+import { LicenseFooter } from '@/components/LicenseFooter'
+import { LicensePage } from '@/components/LicensePage'
 import { PaperPlaneRight, ClockCounterClockwise, Sparkle, Warning } from '@phosphor-icons/react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { toast } from 'sonner'
@@ -43,6 +45,7 @@ function App() {
   const [result, setResult] = useState<AIResponse | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [history, setHistory] = useKV<MessageHistory[]>('message-history', [])
+  const [showLicense, setShowLicense] = useState(false)
 
   const handleImproveMessage = async () => {
     if (!message.trim()) {
@@ -117,6 +120,10 @@ Focus on reducing conflict, using "I" statements, removing absolute language, an
   const clearHistory = () => {
     setHistory([])
     toast.success('History cleared')
+  }
+
+  if (showLicense) {
+    return <LicensePage onBack={() => setShowLicense(false)} />
   }
 
   return (
@@ -293,14 +300,7 @@ Focus on reducing conflict, using "I" statements, removing absolute language, an
           </TabsContent>
         </Tabs>
 
-        <motion.footer
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8, duration: 0.5 }}
-          className="mt-12 text-center text-sm text-muted-foreground relative z-10"
-        >
-          <p>Empowering families through better communication</p>
-        </motion.footer>
+        <LicenseFooter onViewLicense={() => setShowLicense(true)} />
       </div>
     </div>
   )
