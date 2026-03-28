@@ -1,17 +1,12 @@
-const AZURE_ENDPOINT =
-  'https://aifh-t4-aifg2026-artem.services.ai.azure.com/api/projects/proj-t4-artem/openai/v1/responses';
-const AZURE_API_KEY =
-  'REDACTED';
-
 /**
- * Call Azure AI Foundry Responses API and return the assistant's text output.
+ * Call Azure AI Foundry Responses API via nginx reverse proxy.
+ * The API key is injected server-side by nginx — not exposed to the browser.
  */
 export async function callAzureLLM(prompt: string): Promise<string> {
-  const response = await fetch(AZURE_ENDPOINT, {
+  const response = await fetch('/api/ai', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'api-key': AZURE_API_KEY,
     },
     body: JSON.stringify({
       model: 'gpt-4o-mini',
