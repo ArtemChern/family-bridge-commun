@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useKV } from '@github/spark/hooks'
+import { callAzureLLM, parseLLMJson } from '@/lib/azure-llm'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Card } from '@/components/ui/card'
@@ -63,7 +64,7 @@ function App() {
     setResult(null)
 
     try {
-      const promptText = spark.llmPrompt`You are an expert family communication coach. A ${role} has written the following message to their family member:
+      const promptText = `You are an expert family communication coach. A ${role} has written the following message to their family member:
 
 "${message}"
 
@@ -85,8 +86,8 @@ Categories must be exactly one of: "tone", "clarity", or "emotional"
 Make sure the improved message feels natural and authentic, not overly formal.
 Focus on reducing conflict, using "I" statements, removing absolute language, and promoting dialogue.`
 
-      const response = await spark.llm(promptText, 'gpt-4o-mini', true)
-      const parsed = JSON.parse(response) as AIResponse
+      const response = await callAzureLLM(promptText)
+      const parsed = parseLLMJson<AIResponse>(response)
 
       setResult(parsed)
 
