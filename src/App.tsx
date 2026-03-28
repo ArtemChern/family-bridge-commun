@@ -15,7 +15,8 @@ import { MessageComparison } from '@/components/MessageComparison'
 import { ExplanationCard } from '@/components/ExplanationCard'
 import { LicenseFooter } from '@/components/LicenseFooter'
 import { LicensePage } from '@/components/LicensePage'
-import { PaperPlaneRight, ClockCounterClockwise, Sparkle, Warning } from '@phosphor-icons/react'
+import { GameTab } from '@/components/GameTab'
+import { PaperPlaneRight, ClockCounterClockwise, Sparkle, Warning, GameController } from '@phosphor-icons/react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { toast, Toaster } from 'sonner'
 
@@ -153,12 +154,16 @@ Focus on reducing conflict, using "I" statements, removing absolute language, an
         </motion.div>
 
         <Tabs defaultValue="compose" className="space-y-6">
-          <TabsList className="grid w-full max-w-sm mx-auto grid-cols-2 h-11">
-            <TabsTrigger value="compose" className="gap-2 text-sm font-semibold">
+          <TabsList className="grid w-full max-w-lg mx-auto grid-cols-3 h-11">
+            <TabsTrigger value="compose" className="gap-1.5 text-sm font-semibold">
               <PaperPlaneRight size={16} weight="duotone" />
               Compose
             </TabsTrigger>
-            <TabsTrigger value="history" className="gap-2 text-sm font-semibold">
+            <TabsTrigger value="game" className="gap-1.5 text-sm font-semibold">
+              <GameController size={16} weight="duotone" />
+              Challenge
+            </TabsTrigger>
+            <TabsTrigger value="history" className="gap-1.5 text-sm font-semibold">
               <ClockCounterClockwise size={16} weight="duotone" />
               History
             </TabsTrigger>
@@ -255,6 +260,10 @@ Focus on reducing conflict, using "I" statements, removing absolute language, an
                 </motion.div>
               )}
             </AnimatePresence>
+          </TabsContent>
+
+          <TabsContent value="game">
+            <GameTab />
           </TabsContent>
 
           <TabsContent value="history" className="space-y-4">
