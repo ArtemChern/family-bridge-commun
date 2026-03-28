@@ -182,7 +182,7 @@ Focus on reducing conflict, using "I" statements, removing absolute language, an
 
                 <Separator />
 
-                <ModelSelector value={selectedModel} onChange={setSelectedModel} />
+                <ModelSelector value={selectedModel || 'gpt-4o'} onChange={setSelectedModel} />
 
                 <Separator />
 
