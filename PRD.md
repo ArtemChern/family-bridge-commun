@@ -1,11 +1,11 @@
 # Planning Guide
 
-An AI-powered family communication tool that helps parents and children write more effective, empathetic messages by providing real-time refinement suggestions with educational explanations, fostering healthier relationships through better communication habits. Users can select from multiple GitHub-hosted LLM models to power the AI suggestions.
+An AI-powered family communication tool that helps parents and children write more effective, empathetic messages by providing real-time refinement suggestions with educational explanations, fostering healthier relationships through better communication habits.
 
 **Experience Qualities**: 
 1. **Empowering** - Users feel confident in improving their communication skills through clear, actionable feedback
 2. **Supportive** - The interface provides gentle guidance without judgment, creating a safe space for growth
-3. **Intelligent** - Advanced AI models offer nuanced understanding of family dynamics and emotional context
+3. **Simple** - Streamlined interface focused on core functionality without overwhelming options
 
 **Complexity Level**: Light Application (multiple features with basic state)
   - The app has several interconnected features (message input, AI refinement with model selection, comparison view, explanations) but maintains a focused, single-purpose flow without requiring complex multi-view navigation or heavy data persistence
@@ -19,19 +19,12 @@ An AI-powered family communication tool that helps parents and children write mo
 - **Progression**: Select role → Type message → View character count → Enable improve button when ready
 - **Success criteria**: Input captures multi-line text, role selection is clear, button state reflects readiness
 
-### AI Model Selection
-- **Functionality**: Dropdown selector for choosing between available GitHub-hosted LLM models (GPT-4o, GPT-4o Mini)
-- **Purpose**: Allows users to choose between more capable models for complex communication or faster models for quick improvements
-- **Trigger**: Displayed alongside role selection before message composition
-- **Progression**: View model options → Select preferred model → See model description → Model preference persists for future sessions
-- **Success criteria**: Clear model descriptions, visual badges indicating recommended/fast options, selection persists using useKV
-
 ### AI Message Refinement
 - **Functionality**: Submit button triggers AI analysis that returns improved message version with categorized explanations
 - **Purpose**: Provides concrete examples of better communication patterns while explaining the reasoning
 - **Trigger**: Click "Improve Message" button
 - **Progression**: Click improve → Loading state with skeleton → Results appear with animation → Compare original vs improved
-- **Success criteria**: Response within reasonable time using selected model, maintains original intent, feels authentic not robotic
+- **Success criteria**: Response within reasonable time, maintains original intent, feels authentic not robotic
 
 ### Side-by-Side Message Comparison
 - **Functionality**: Side-by-side or stacked display (responsive) showing original vs improved message
@@ -61,7 +54,6 @@ An AI-powered family communication tool that helps parents and children write mo
 - **Very long messages** - Show character count with suggested maximum, allow but may truncate display
 - **Offline state** - Show clear indicator that AI features require connection
 - **No history** - Empty state with helpful illustration and prompt to start using the app
-- **Model selection errors** - Fallback to default model if selected model unavailable
 
 ## Design Direction
 
@@ -107,7 +99,6 @@ Animations should feel gentle and purposeful - like breathing or flowing water -
   - **Card**: For message containers (original vs improved), using subtle shadows and the soft sky background to create depth
   - **Textarea**: Primary input for message composition, with auto-resize and character count
   - **RadioGroup**: For Parent/Child role selection, with clear visual distinction and icons
-  - **Select**: For AI model selection with descriptions and visual badges
   - **Button**: Primary action "Improve Message", with loading state during AI processing
   - **Badge**: For categorizing explanation types (Tone, Clarity, Emotional Balance) and model features (Recommended, Fast)
   - **ScrollArea**: For message history view when it exceeds viewport
@@ -117,11 +108,9 @@ Animations should feel gentle and purposeful - like breathing or flowing water -
   - **Tabs**: For switching between main view and history/stats view
 
 - **Customizations**:
-  - Custom 3D background using CSS transforms and gradients (soft geometric shapes with depth)
-  - Custom message diff highlighting component that shows specific changes between original and improved
+  - Custom floating background using CSS gradients with framer-motion for ambient movement
+  - Custom message comparison component that shows original vs improved side-by-side
   - Custom explanation cards with iconography from @phosphor-icons/react (Lightbulb, ChatCircle, Heart, Robot, Sparkle)
-  - Custom model selector with detailed descriptions and visual indicators
-  - Floating particle effect using framer-motion for ambient background movement
 
 - **States**:
   - Buttons: Idle (primary blue), Hover (slightly lighter with lift), Active (pressed down), Loading (spinner with reduced opacity), Disabled (muted with cursor not-allowed)

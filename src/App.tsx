@@ -10,11 +10,9 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
 import { FloatingBackground } from '@/components/FloatingBackground'
 import { RoleSelector } from '@/components/RoleSelector'
-import { ModelSelector } from '@/components/ModelSelector'
 import { MessageComparison } from '@/components/MessageComparison'
 import { ExplanationCard } from '@/components/ExplanationCard'
-import { LicensePage } from '@/components/LicensePage'
-import { PaperPlaneRight, ClockCounterClockwise, Sparkle, Warning, Robot } from '@phosphor-icons/react'
+import { PaperPlaneRight, ClockCounterClockwise, Sparkle, Warning } from '@phosphor-icons/react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { toast } from 'sonner'
 
@@ -39,10 +37,8 @@ interface AIResponse {
 }
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<'home' | 'license'>('home')
   const [message, setMessage] = useState('')
   const [role, setRole] = useState('parent')
-  const [selectedModel, setSelectedModel] = useKV<string>('selected-model', 'gpt-4o')
   const [isLoading, setIsLoading] = useState(false)
   const [result, setResult] = useState<AIResponse | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -64,7 +60,7 @@ function App() {
     setResult(null)
 
     try {
-      const promptText = `You are an expert family communication coach. A ${role} has written the following message to their family member:
+      const promptText = spark.llmPrompt`You are an expert family communication coach. A ${role} has written the following message to their family member:
 
 "${message}"
 
@@ -86,7 +82,7 @@ Categories must be exactly one of: "tone", "clarity", or "emotional"
 Make sure the improved message feels natural and authentic, not overly formal.
 Focus on reducing conflict, using "I" statements, removing absolute language, and promoting dialogue.`
 
-      const response = await window.spark.llm(promptText, selectedModel as 'gpt-4o' | 'gpt-4o-mini', true)
+      const response = await spark.llm(promptText, 'gpt-4o-mini', true)
       const parsed = JSON.parse(response) as AIResponse
 
       setResult(parsed)
@@ -121,10 +117,6 @@ Focus on reducing conflict, using "I" statements, removing absolute language, an
   const clearHistory = () => {
     setHistory([])
     toast.success('History cleared')
-  }
-
-  if (currentPage === 'license') {
-    return <LicensePage onBack={() => setCurrentPage('home')} />
   }
 
   return (
@@ -164,25 +156,8 @@ Focus on reducing conflict, using "I" statements, removing absolute language, an
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
             >
-              <Alert className="bg-accent/10 border-accent/30">
-                <Robot size={18} weight="duotone" className="text-accent" />
-                <AlertDescription className="text-sm">
-                  This tool uses AI to suggest improved communication. Always review suggestions carefully and use your own judgment. AI is a guide, not a replacement for genuine understanding.
-                </AlertDescription>
-              </Alert>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.5 }}
-            >
               <Card className="p-6 md:p-8 space-y-6 bg-card/80 backdrop-blur-sm border-2">
                 <RoleSelector value={role} onChange={setRole} />
-
-                <Separator />
-
-                <ModelSelector value={selectedModel || 'gpt-4o'} onChange={setSelectedModel} />
 
                 <Separator />
 
@@ -322,18 +297,9 @@ Focus on reducing conflict, using "I" statements, removing absolute language, an
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.5 }}
-          className="mt-12 text-center text-sm text-muted-foreground space-y-2"
+          className="mt-12 text-center text-sm text-muted-foreground"
         >
-          <p>Built by <span className="font-semibold text-foreground">Mosaic Team</span> for AI For Good 2026 South Europe Hackathon</p>
           <p>Empowering families through better communication</p>
-          <p className="text-xs">
-            <button
-              onClick={() => setCurrentPage('license')}
-              className="underline hover:text-accent transition-colors"
-            >
-              MIT License
-            </button>
-          </p>
         </motion.footer>
       </div>
     </div>
